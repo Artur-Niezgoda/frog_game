@@ -4,7 +4,6 @@ from cars import CarManager
 from scoreboard import Scoreboard
 import time
 
-
 WIDTH = 600
 HEIGHT = 600
 
@@ -24,9 +23,12 @@ count = 0
 count_limit = 30
 while game_on:
     time.sleep(0.01)
+    # Add car every now and then
     if count == count_limit:
         car_manager.add_car()
         count = 0
+    
+    # Move car    
     car_manager.move_car()
     
 
@@ -36,7 +38,7 @@ while game_on:
             game_on = False
             scoreboard.game_over()
 
-    # Detect crossed street
+    # If player crosses street successfully
     if player.ycor() > 250:
         player.reset()
         car_manager.level_up()
@@ -44,7 +46,7 @@ while game_on:
         
         if scoreboard.level % 2 == 0:
             count_limit -= 3
-            
+
     screen.update()
     count += 1
 screen.exitonclick()
